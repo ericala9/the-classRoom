@@ -23,16 +23,6 @@ library(tidyverse)
 library(nycflights13)
 library(styler)
 
-centralizado <- function(title, width = 78, border = "-", uppercase = FALSE) {
-  if (uppercase) title <- toupper(title)
-  label <- paste0(" ", title, " ")
-  pad_total <- width - nchar(label, type = "width")
-  pad_left <- floor(pad_total / 2)
-  pad_right <- ceiling(pad_total / 2)
-  line <- paste0("# ", strrep(border, pad_left), label, strrep(border, pad_right))
-  cat(line, "\n")
-}
-
 # ---------------------------- 5.1.1 Prerequisites -----------------------------
 
 library(tidyverse)
