@@ -24,17 +24,6 @@ library(nycflights13)
 library(styler)
 
 # To run styler: Ctrl + Shift + P → type "styler".
-
-centralizado <- function(title, width = 78, border = "-", uppercase = FALSE) {
-  if (uppercase) title <- toupper(title)
-  label <- paste0(" ", title, " ")
-  pad_total <- width - nchar(label)
-  pad_left <- floor(pad_total / 2)
-  pad_right <- ceiling(pad_total / 2)
-  line <- paste0("# ", strrep(border, pad_left), label, strrep(border, pad_right))
-  cat(line, "\n")
-}
-
 # Use a common prefix to make autocomplete more useful.
 
 # --------------------------------- 4.1 NAMES ---------------------------------- 
