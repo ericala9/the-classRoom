@@ -11,8 +11,10 @@ We grow, the language grows, and there’s *always* more to learn.
 
 ## 🗂️ Table of Contents
 
-1. **Data Visualization** | [TIL](#chapter-1--data-visualization--book--notes) | [Notes](01_DataVisualization.R) | Oct 2025
-
+1. **Data Visualization**
+   - [TIL](#chapter-1--data-visualization--book--notes) | [Notes](01_DataVisualization.R) | Oct 2025
+2. **Workflow: basics**
+   - [TIL](#chapter-2--workflow-basics--book--notes) | [Notes](02_Workflow-basics.R) | Oct 2025
 
 ---
 ### Chapter 1 — Data Visualization | [book](https://r4ds.hadley.nz/data-visualize.html) | [notes](01_DataVisualization.R)
