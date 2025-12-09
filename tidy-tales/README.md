@@ -3,7 +3,16 @@ I first learned R back in 2009 — before RStudio, before tidyverse, before pipe
 
 I’ve been using tidyverse for years now, but I’ve realized there’s a lot of powerful functionality I never truly learned — or picked up only halfway. So I’m revisiting the basics with r4ds - **[R for Data Science (2e)](https://r4ds.hadley.nz)** to fill those gaps, build cleaner habits, and take advantage of what modern R can really do.
 
+This repository, **tidy-tales**, is where I keep small stories from this journey. Notes, scripts, and little discoveries that don’t pretend to teach anything grand, but quietly record what I learned each day.
+
 We grow, the language grows, and there’s *always* more to learn.
+
+---
+
+## 🗂️ Table of Contents
+
+1. **Data Visualization** | [TIL](#chapter-1--data-visualization--book--notes) | [Notes](01_DataVisualization.R) | Oct 2025
+
 
 ---
 ### Chapter 1 — Data Visualization | [book](https://r4ds.hadley.nz/data-visualize.html) | [notes](01_DataVisualization.R)
