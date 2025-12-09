@@ -6,7 +6,7 @@ I’ve been using tidyverse for years now, but I’ve realized there’s a lot o
 We grow, the language grows, and there’s *always* more to learn.
 
 ---
-### Chapter 1 — Data Visualization | [book](https://r4ds.hadley.nz/data-visualize.html) | [notes](tidy-tales/01_DataVisualization.R)
+### Chapter 1 — Data Visualization | [book](https://r4ds.hadley.nz/data-visualize.html) | [notes](01_DataVisualization.R)
 #### 2025-10-29 
 - When I saw the book started with **ggplot2**, I almost gave up. Since I first heard about it back in 2011, I could never grasp its logic. Good thing I didn’t — this time, it finally clicked. :bar_chart:
 #### 2025-10-30
@@ -15,14 +15,14 @@ We grow, the language grows, and there’s *always* more to learn.
 - The *Esc* key literally means <ins>escape</ins>. It suddenly makes perfect sense — it gets us out of almost every computer-related danger.
 - Another revelation: `ggsave()`! I used to save plots with `pdf()` or `jpeg()`. No wonder **ggplot2** felt so awkward back then — I was mixing it with ancient ways. :exploding_head:
 
-### Chapter 2 — Workflow: basics | [book](https://r4ds.hadley.nz/workflow-basics.html) | [notes](tidy-tales/02_Workflow-basics.R)
+### Chapter 2 — Workflow: basics | [book](https://r4ds.hadley.nz/workflow-basics.html) | [notes](02_Workflow-basics.R)
 #### 2025-10-31
 - **Ctrl** + ↑ shows all commands starting with what you just typed in the console.
 - **Alt** + **Ctrl** + **K** opens a cheatsheet of RStudio shortcuts.
 
 Little things, big difference. 🚀
 
-### Chapter 3 — Data transformation | [book](https://r4ds.hadley.nz/data-transform.html) | [notes](tidy-tales/03_DataTransformation.R)
+### Chapter 3 — Data transformation | [book](https://r4ds.hadley.nz/data-transform.html) | [notes](03_DataTransformation.R)
 #### 2025-11-01
 - Use `.keep_all = TRUE` in `distinct()` to keep all columns when filtering for unique rows.
 
@@ -41,11 +41,11 @@ Little things, big difference. 🚀
 #### 2025-11-07
 - `count()`: a simpler, dplyr alternative to `table()`. Much easier than doing `group_by()` + `summarize()`.
 
-### Chapter 4 — Workflow: code style | [book](https://r4ds.hadley.nz/workflow-style.html) | [notes](tidy-tales/04_Workflow-CodeStyle.R)
+### Chapter 4 — Workflow: code style | [book](https://r4ds.hadley.nz/workflow-style.html) | [notes](04_Workflow-CodeStyle.R)
 #### 2025-11-10
 - Sectioning comments: a way to organize chaos — and navigate through it.
 
-### Chapter 5 - Data tidying | [book](https://r4ds.hadley.nz/data-tidy.html) | [notes](tidy-tales/05_DataTidying.R)
+### Chapter 5 - Data tidying | [book](https://r4ds.hadley.nz/data-tidy.html) | [notes](05_DataTidying.R)
 
 #### 2025-11-11
 - Turns out the `cols` argument in `pivot_longer()` understands the same helpers as `select()` — so you can use `starts_with`, `ends_with`, `matches`, and friends.
