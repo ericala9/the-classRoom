@@ -164,10 +164,26 @@ knitr::kable(educ.table,
 Para fazer o boxplot múltiplo foram utilizados os seguintes comandos:
 
 ```{r}
+#| echo: true
+#| results: "hide"
+#| eval: false
 boxplot(beleza$salhora~beleza$aparencia, 
 main="Boxplot de salário por hora pela aparência", 
 ylab="Salário por hora", col=c("gray50", "brown", "beige", 
 "light blue", "pink"), names=c("muito feio", "feio", "médio",
 "bonito", "muito bonito"))
 ```
+
+```{r}
+#| echo: false
+boxplot(beleza$salhora ~ beleza$aparencia,
+        main = "Boxplot de salário por hora pela aparência",
+        ylab = "Salário por hora",
+        xlab = "",
+        col = c("gray50", "brown", "beige", "light blue", "pink"),
+        names = c("muito feio", "feio", "médio", "bonito", "muito bonito"),
+        cex.axis = 0.8)
+```
+
+
 
