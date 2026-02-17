@@ -7,6 +7,13 @@ lang: pt-BR
 format: pdf
 ---
 
+::: {.content-visible when-format="pdf"}
+\begin{flushright}
+  \footnotesize
+  \textcolor{gray}Arquivo original no {\href{https://github.com/ericala9/the-classRoom/tree/main/the-first-r-tale}{GitHub  }}
+\end{flushright}
+:::
+
 ::: {.callout-note}
 ## Nota
 Este material foi revisitado em fevereiro de 2026 apenas para conferir a retrocompatibilidade do script. Não foram feitas alterações nas respostas originais da lista. As tabelas foram geradas via `kable` para melhor compatibilidade com o Quarto, substituindo o uso original do pacote `xtable`. Como não tenho mais a base de dados utilizada no exercício de 2009, ela foi reconstruída com o bloco de código a seguir. 

@@ -1,0 +1,206 @@
+---
+title: "Lista para entrega 1 - dentro do Tidyverse"
+author: "Érica Ambrosio"
+date: today
+date-format: long
+lang: pt-BR
+format: pdf
+---
+
+::: {.content-visible when-format="pdf"}
+\begin{flushright}
+  \footnotesize
+  \textcolor{gray}Arquivo original no {\href{https://github.com/ericala9/the-classRoom/tree/main/the-first-r-tale}{GitHub  }}
+\end{flushright}
+:::
+
+::: callout-note
+## Nota
+Este material foi escrito em fevereiro de 2026 com o objetivo de imaginar como eu faria esta lista hoje. Como não tenho mais a base de dados utilizada no exercício de 2009, ela foi reconstruída com o bloco de código a seguir.
+:::
+
+```{r}
+library(wooldridge)
+
+beleza <- wooldridge::beauty
+
+names(beleza) <- c("salhora", "lnsalhora", "abaixomed", "acimamed",
+                   "exper","aparencia", "sindicato", "boasaude",
+                   "negro", "mulher","casado", "sul", "grandecid",
+                   "peqenacid", "servicos", "experquad", "educ")
+beleza$aparencia <- factor(
+    beleza$aparencia, 
+    labels = c("muito feio", "feio", "médio", "bonito", "muito bonito"), 
+    ordered = T
+    )
+beleza$mulher <- factor(beleza$mulher, labels = c("homem", "mulher"))
+```
+
+# 1. Tabela de frequências absolutas e relativas
+
+Para fazer a Tabela 1 foram utilizados os seguintes comandos:
+
+```{r}
+#| tbl-pos: 'H'
+#| message: false
+#| warning: false
+library(dplyr)
+library(gt)
+library(janitor)
+
+beleza |> 
+  count(educ) |> 
+  mutate(freq_relativa = n / sum(n)) |>
+  adorn_totals(where = "row") |>
+  gt() |> 
+    tab_header(
+    title = "Tabela 1: Distribuição por anos de estudo"
+  ) |> 
+  cols_label(
+    educ = "Anos de estudo",
+    n = "Frequência absoluta",
+    freq_relativa = "Frequência relativa"
+  ) |> 
+  fmt_number(
+    columns = freq_relativa,
+    decimals = 4,
+    sep_mark = ".", 
+    dec_mark = ","
+  )
+```
+
+# 2. Tabela de dupla entrada
+
+Para fazer a Tabela 2 foram utilizados os seguintes comandos:
+
+```{r}
+#| tbl-pos: 'H'
+beleza |> 
+  tabyl(mulher, casado) |> 
+  adorn_totals(where = c("row", "col")) |> 
+  gt() |> 
+  tab_header(
+    title = "Tabela 2: Distribuição do estado civil por gênero"
+  ) |> 
+  cols_label(
+    mulher = "gênero",
+    "0"  = "solteiro",
+    "1" = "casado"
+  )
+```
+
+# 3. Gráfico de colunas simples
+
+Para fazer este gráfico foram utilizados os seguintes comandos:
+
+```{r}
+#| message: false
+#| warning: false
+library(ggplot2)
+
+ggplot(beleza, aes(x = factor(educ))) +
+  geom_bar(fill = "steelblue") +
+  labs(
+    title = "Distribuição por anos de estudo",
+    x = "Anos de estudo",
+    y = "Frequência"
+  ) +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+```
+
+# 4. Gráfico de colunas múltiplas
+
+Para fazer este gráfico foram utilizados os seguintes comandos:
+
+```{r}
+ggplot(beleza, aes(x = mulher, fill = factor(casado))) +
+geom_bar(
+    position = position_dodge(width = 0.9, preserve = "single"),
+    width = 0.85 
+  ) +
+scale_fill_manual(
+    values = c("0" = "darkcyan", "1" = "steelblue"),
+    labels = c("0" = "Solteiro", "1" = "Casado")
+  ) +
+  labs(
+    title = "Distribuição do estado civil por gênero",
+    x = "Gênero",
+    y = "Frequência",
+    fill = "Estado civil"
+  ) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5))
+```
+
+# 5. Histograma
+
+Para fazer este histograma foram utilizados os seguintes comandos:
+
+```{r}
+beleza |> 
+  ggplot(aes(x = exper)) +
+  geom_histogram(
+    fill = "darkcyan",
+    color = "white",
+    binwidth = 5,
+    boundary = 0
+  ) +
+  labs(
+    title = "Distribuição por anos de experiência",
+    x = "Anos de experiência",
+    y = "Frequência"
+  ) +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+```
+
+# 6. Tabela de frequências para uma variável quantitativa em classes
+
+Para fazer a Tabela 3 foram utilizados os seguintes comandos:
+
+```{r}
+#| tbl-pos: 'H'
+library(scales)
+
+beleza |> 
+  mutate(educ_faixas = cut_interval(educ, 3)) |> 
+  count(educ_faixas) |> 
+  mutate(freq_relativa = n / sum(n)) |> 
+  adorn_totals(where = "row") |> 
+  gt() |> 
+    tab_header(
+      title = "Tabela 3: Distribuição por anos de estudo"
+    ) |> 
+  cols_label(
+    educ_faixas = "Anos de estudo",
+    n = "Frequência absoluta",
+    freq_relativa = "Frequência relativa"
+  ) |> 
+  fmt_number(
+    columns = freq_relativa,
+    decimals = 4,
+    sep_mark = ".", 
+    dec_mark = ","
+  )
+```
+
+# 7. Boxplot múltiplo
+
+Para fazer o boxplot múltiplo foram utilizados os seguintes comandos:
+
+```{r}
+#| message: false
+#| warning: false
+library(viridis)
+
+ggplot(beleza, aes(x = aparencia, y = salhora, fill = aparencia)) +
+  geom_boxplot() +
+  scale_fill_viridis(discrete = TRUE, option = "mako", begin = 0.4) +
+  labs(
+    title = "Distribuição do salário pela aparência",
+    x = "aparência",
+    y = "Salário por hora"
+  ) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    legend.position = "none"
+  )
+```
