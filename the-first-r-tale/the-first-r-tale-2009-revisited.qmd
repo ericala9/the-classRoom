@@ -1,0 +1,173 @@
+---
+title: "Lista para entrega 1"
+author: "Érica Ambrosio"
+date: 2009-10-07
+date-format: long
+lang: pt-BR
+format: pdf
+---
+
+::: {.callout-note}
+## Nota
+Este material foi revisitado em fevereiro de 2026 apenas para conferir a retrocompatibilidade do script. Não foram feitas alterações nas respostas originais da lista. As tabelas foram geradas via `kable` para melhor compatibilidade com o Quarto, substituindo o uso original do pacote `xtable`. Como não tenho mais a base de dados utilizada no exercício de 2009, ela foi reconstruída com o bloco de código a seguir. 
+:::
+
+```{r}
+library(wooldridge)
+
+beleza <- wooldridge::beauty
+
+names(beleza) <- c("salhora", "lnsalhora", "abaixomed", "acimamed",
+                   "exper","aparencia", "sindicato", "boasaude",
+                   "negro", "mulher","casado", "sul", "grandecid",
+                   "peqenacid", "servicos", "experquad", "educ")
+beleza$aparencia <- factor(
+    beleza$aparencia, 
+    labels = c("muito feio", "feio", "médio", "bonito", "muito bonito"), 
+    ordered = T
+    )
+beleza$mulher <- factor(beleza$mulher, labels = c("homem", "mulher"))
+```
+
+# 1. Tabela de frequências absolutas e relativas
+
+Para fazer a Tabela 1 foram utilizados os seguintes comandos:
+
+```{r}
+#| echo: true
+#| results: "hide"
+library(xtable)
+
+educ.table <- table(beleza$educ)
+educ.table/sum(educ.table)
+educ.table <- matrix(c(5, 42, 0.03333333, 8, 44, 0.03492063, 10,
+156, 0.12380952, 12, 468, 0.37142857, 13, 246, 0.19523810, 14, 51,
+0.04047619, 16, 121, 0.09603175, 17, 132, 0.10476190), nrow=8, byrow=3)
+colnames(educ.table)<- c("Anos de estudo", "Frequência absoluta",
+"Frequência relativa")
+educ.table
+xtable(educ.table, digits=8, caption="Distribuição de educação")
+```
+```{r}
+#| echo: false
+knitr::kable(educ.table, 
+             digits = 4, 
+             col.names = c("Anos de estudo", "Frequência absoluta", "Frequência relativa"),
+             caption = "Distribuição de educação",
+             format.args = list(decimal.mark = ",", big.mark = ".")) 
+```
+
+# 2. Tabela de dupla entrada
+
+Para fazer a Tabela 2 foram utilizados os seguintes comandos:
+
+```{r}
+#| echo: true
+#| results: "hide"
+table.2way <- table(beleza$mulher,beleza$casado)
+colnames(table.2way) <- c("solteiro","casado")
+table.2way
+est.civil <- margin.table(table.2way,2)
+est.civil
+table.2way <- rbind(table.2way,est.civil)
+rownames(table.2way)[3] <- c("Total")
+table.2way
+genero.total <- margin.table(table.2way,1)
+genero.total
+table.2way <- cbind(table.2way,genero.total)
+colnames(table.2way)[3] <- c("Total")
+library(xtable)
+xtable(table.2way, caption="Distribuição do estado civil por gênero")
+```
+```{r}
+#| echo: false
+knitr::kable(table.2way, 
+             digits = 4, 
+             col.names = c("gênero", "solteiro", "casado", "total"),
+             caption = "Distribuição do estado civil por gênero",
+             format.args = list(decimal.mark = ",", big.mark = "."))
+```
+
+# 3. Gráfico de colunas simples
+
+Para fazer este gráfico foram utilizados os seguintes comandos:
+
+```{r}
+#| echo: true
+#| results: "hide"
+educ.table = table(beleza$educ)
+educ.table
+barplot(educ.table, main="Gráfico de educação", xlab="Anos de estudo",
+ylab="Frequência", col="blue")
+```
+
+# 4. Gráfico de colunas múltiplas
+
+Para fazer este gráfico foram utilizados os seguintes comandos:
+
+```{r}
+#| echo: true
+#| results: "hide"
+table.2way <- table(beleza$mulher,beleza$casado)
+table.2way
+colnames(table.2way) <- c("solteiro","casado")
+barplot(t(table.2way), beside=T, legend.text=colnames(table.2way),
+col=c("red","yellow"), main="Gráfico da distribuição de estado civil
+por gênero", ylab="Frequência")
+
+```
+
+# 5. Histograma
+
+Para fazer este histograma foram utilizados os seguintes comandos:
+
+```{r}
+with(beleza, hist(beleza$exper, col="purple", main="Histograma da
+experiência", xlab="Anos de experiência", ylab="Frequência"))
+```
+
+# 6. Tabela de frequências para uma variável quantitativa em classes
+
+Para fazer a Tabela 3 foram utilizados os seguintes comandos:
+
+```{r}
+#| echo: true
+#| results: "hide"
+educ.factor <- cut(beleza$educ,3)
+table(educ.factor)
+table(educ.factor)/sum(table(educ.factor))
+table.educ <- rbind(table(educ.factor),
+                    table(educ.factor)/sum(table(educ.factor)))
+educ.table <- t(table.educ)
+colnames(educ.table) <- c("Frequência absoluta", "Frequência relativa")
+margin.table(table.educ,2)
+educ.table <- rbind(educ.table, margin.table(educ.table,2))
+rownames(educ.table)[4] <- ("Total")
+library(xtable)
+xtable(educ.table, caption="Distribuição da educação", digits=c(0,0,8))
+```
+
+```{r}
+#| echo: false
+knitr::kable(educ.table, 
+             digits = 4, 
+             col.names = c(
+               "Anos de estudo", 
+               "Frequência absoluta", 
+               "Frequência relativa"
+             ),
+             caption = "Distribuição de educação",
+             format.args = list(decimal.mark = ",", big.mark = "."))
+```
+# 7. Boxplot múltiplo
+
+Para fazer o boxplot múltiplo foram utilizados os seguintes comandos:
+
+```{r}
+boxplot(beleza$salhora~beleza$aparencia, 
+main="Boxplot de salário por hora pela aparência", 
+ylab="Salário por hora", col=c("gray50", "brown", "beige", 
+"light blue", "pink"), names=c("muito feio", "feio", "médio",
+"bonito", "muito bonito"))
+```
+
